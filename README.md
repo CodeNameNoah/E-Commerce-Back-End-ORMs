@@ -18,12 +18,12 @@ Overall, I am excited to share the success of this project and how it can greatl
 
 [![Socials](https://skillicons.dev/icons?i=js,git,mysql,nodejs,express)](https://skillicons.dev)
 
-| Featured Technology Used |                        Link                         |
-| :----------------------: | :-------------------------------------------------: |
-|        `Node.js`         |           [LINK](https://nodejs.dev/en/)            |
-|          `NPM`           |           [LINK](https://www.npmjs.com/)            |
-|         `Mysql`          |           [LINK](https://www.mysql.com/)            |
-|        `Express`         |           [LINK](https://expressjs.com/)            |
+| Featured Technology Used |              Link              |
+| :----------------------: | :----------------------------: |
+|        `Node.js`         | [LINK](https://nodejs.dev/en/) |
+|          `NPM`           | [LINK](https://www.npmjs.com/) |
+|         `Mysql`          | [LINK](https://www.mysql.com/) |
+|        `Express`         | [LINK](https://expressjs.com/) |
 
 ---
 
@@ -34,7 +34,10 @@ Overall, I am excited to share the success of this project and how it can greatl
 ## Take A Look At Our Application In Action! [CLICK PREVIEW TO WATCH VIDEO!]
 
 - E-Commerce-Back-End-ORMs Tutorial - [Back-End-ORMs](https://www.youtube.com/watch?v=QRh_KFoSkSg)
+
 - [![Watch the video](https://img.youtube.com/vi/QRh_KFoSkSg/maxresdefault.jpg)](https://youtu.be/QRh_KFoSkSg)
+
+- ![Demo of Insomnia Test for Products](https://user-images.githubusercontent.com/127361736/236393142-d55508b4-205b-40d2-8df4-8f0dfe11227c.gif)
 
 ---
 
@@ -62,15 +65,15 @@ Overall, I am excited to share the success of this project and how it can greatl
 
 Now you may be wondering as a business owner why you would want to own or utilize a CMS, well here are some pointers:
 
-* Easy to use: My CMS is user-friendly and easy to use, which makes it accessible to business owners who are not tech-savvy. Business owners can quickly update their website content without the need for technical expertise.
+- Easy to use: My CMS is user-friendly and easy to use, which makes it accessible to business owners who are not tech-savvy. Business owners can quickly update their website content without the need for technical expertise.
 
-* Saves time: My CMS allows business owners to quickly add or update website content, which saves time and effort. Business owners can manage their website content themselves instead of relying on a web developer or technical team.
+- Saves time: My CMS allows business owners to quickly add or update website content, which saves time and effort. Business owners can manage their website content themselves instead of relying on a web developer or technical team.
 
-* Customizable: My CMS is highly customizable and can be tailored to meet the specific needs of different businesses. This means that business owners can modify their website content and design to align with their branding and marketing goals.
+- Customizable: My CMS is highly customizable and can be tailored to meet the specific needs of different businesses. This means that business owners can modify their website content and design to align with their branding and marketing goals.
 
-* Cost-effective: My CMS is cost-effective as it eliminates the need for a technical team to manage website content. Business owners can easily manage website content themselves, which reduces the cost of maintaining a website.
+- Cost-effective: My CMS is cost-effective as it eliminates the need for a technical team to manage website content. Business owners can easily manage website content themselves, which reduces the cost of maintaining a website.
 
-* Scalability: My CMS is scalable, which means that it can accommodate businesses of different sizes and stages of growth. As businesses grow and require more functionality, the CMS can be scaled up to meet their needs.*
+- Scalability: My CMS is scalable, which means that it can accommodate businesses of different sizes and stages of growth. As businesses grow and require more functionality, the CMS can be scaled up to meet their needs.\*
 
 To use Insomnia, follow these simple tips:
 
@@ -97,72 +100,41 @@ Note: Make sure you have a MySQL server running on your computer with the approp
 ## Featured Code Snippet
 
 ```
-const multiMenu = () => {
-  inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "option",
-        loop: false,
-        message: "What would you like to do?",
-        choices: [
-          "View all departments",
-          "View all roles",
-          "View all employees",
-          "Add a department",
-          "Add a role",
-          "Add an employee",
-          "Update an employee role",
-          "Exit",
-        ],
-      },
-    ])
-    .then((answer) => {
-      switch (answer.option) {
-        case "View all departments":
-          viewDepartments();
-          break;
-        case "View all roles":
-          viewRoles();
-          break;
-        case "View all employees":
-          viewEmployees();
-          break;
-        case "Add a department":
-          addDepartment();
-          break;
-        case "Add a role":
-          addRole();
-          break;
-        case "Add an employee":
-          addEmployee();
-          break;
-        case "Update an employee role":
-          updateEmployee();
-          break;
-        case "Exit":
-          console.log("See you next time!");
-          db.end();
-          break;
-        default:
-          console.log("Invalid! Please try again");
-          multiMenu();
-          break;
-      }
-    });
+// import models
+const Product = require("./Product");
+const Category = require("./Category");
+const Tag = require("./Tag");
+const ProductTag = require("./ProductTag");
+
+// Products belongsTo Category
+Product.belongsTo(Category, {
+  foreignKey: "category_id",
+});
+// Categories have many Products
+Category.hasMany(Product, {
+  foreignKey: "category_id",
+});
+// Products belongToMany Tags (through ProductTag)
+Product.belongsToMany(Tag, {
+  through: ProductTag,
+});
+// Tags belongToMany Products (through ProductTag)
+Tag.belongsToMany(Product, {
+  through: ProductTag,
+});
+module.exports = {
+  Product,
+  Category,
+  Tag,
+  ProductTag,
 };
+
 
 ```
 
-- This is where the magic happens, it is quite a lot I must admit.
+- This is where the magic happens, it was quite fun working out the hiccups I must admit.
 
-Working on this particular part of the application was both challenging and exciting for me. Through this code, I got the chance to work with an external package called inquirer and learned a lot about how to use it effectively.
-
-This section of the code uses inquirer.prompt() to present the user with a list of options, and then it handles the user's selection by executing the appropriate function based on the user's choice using a switch statement.
-
-While working on this code, I discovered that inquirer is a powerful tool for creating interactive command-line applications. I also learned about the importance of good user interface design in creating applications that are easy to use and navigate.
-
-Overall, this was a difficult but exciting part of the application to complete, and it helped me gain a deeper understanding of how to use inquirer effectively and the importance of user interface design in creating functional applications.
+This code establishes relationships between four models (Product, Category, Tag, and ProductTag) in a database-driven application using the Sequelize ORM library. It defines associations such as "Product belongs to Category", "Category has many Products", "Product belongs to many Tags", and "Tag belongs to many Products". These associations enable the application to retrieve related data from multiple tables in the database. Finally, the code exports the four models for use in other parts of the application.
 
 ---
 
