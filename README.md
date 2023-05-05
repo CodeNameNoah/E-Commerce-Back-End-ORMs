@@ -160,9 +160,9 @@ This code establishes relationships between four models (Product, Category, Tag,
 
   - https://www.mysql.com/
 
-- Documentation on figlet
+- Documentation on Express
 
-  - https://www.npmjs.com/package/figlet
+  - https://expressjs.com/
 
 ## License
 
